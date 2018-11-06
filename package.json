@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/BudacaB/cardgame_backend/issues"
   },
-  "homepage": "https://github.com/BudacaB/cardgame_backend#readme"
+  "homepage": "https://github.com/BudacaB/cardgame_backend#readme",
+  "dependencies": {
+    "swagger": "^0.7.5"
+  }
 }
