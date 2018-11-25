@@ -17,6 +17,22 @@ class CardService {
         return deck
     }
 
+    shuffleDeck() {
+        let deck = this.getDeck() 
+        for (let i = 0; i < deck.length; i++) {
+            let lastCard = deck.pop()
+            deck.splice(this.getRandomPositionForDeck(deck), 0, lastCard)
+        }
+        return deck
+    }
+
+    getRandomPositionForDeck(deckParam) {
+        let min = 0
+        let max = deckParam.length
+        let randomPosition = Math.random() * (max - min) + min
+        return randomPosition
+    }
+
 }
 
 module.exports = CardService
@@ -26,4 +42,5 @@ module.exports = CardService
 /* BE:
 1.1 new method shuffleDeck
 		Input: deck
-		Output: randomized deck */
+        Output: randomized deck */
+        
