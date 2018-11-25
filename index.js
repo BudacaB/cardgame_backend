@@ -7,12 +7,24 @@ const CardService = require('./services/card.service')
 let myCardService = new CardService()
 
 
+
 // middleware
-const logFunction = (req, res, next) => {
-    console.log('called', req.path)
+const logFunction = (request, response, next) => {
+    console.log('called', request.path)
     next()
 }
+
+const activateCors = (request, response, next) => {
+    cors()
+    console.log('cors_passed')
+    next()
+} 
+
+app.use(activateCors)
 app.use(logFunction)
+
+
+
 
 // tests to understand - ignore
 /* const defaultRouteFunction = (req, res) => {
@@ -33,8 +45,16 @@ app.use(logFunction)
 const deckController = (req, res) => {
     res.send(myCardService.getDeck())
 }
+
+const randomizedDeckController = (req, res) => {
+    res.send(myCardService.shuffleDeck())
+}
+
+app.get('/randomizedDeck', cors(), randomizedDeckController)
+
 app.get('/deck', cors(), deckController)
 app.listen(port, () => console.log(` app listening on port ${port}!`))
 
 
-// app.listen(80, showDeck())
+
+
