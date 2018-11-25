@@ -1,12 +1,20 @@
 const express = require('express')
 const app = express()
 const port = 3000
+const cors = require('cors')  // cors
+const CardService = require('./services/card.service')
+
+let myCardService = new CardService()
+
+
+// middleware
 const logFunction = (req, res, next) => {
     console.log('called', req.path)
     next()
 }
 app.use(logFunction)
 
+// tests to understand - ignore
 /* const defaultRouteFunction = (req, res) => {
     res.send('Hello World!')
 } */
@@ -20,28 +28,13 @@ app.use(logFunction)
 //app.get('/adunare', adunareFunction)
 
 
-const getDeck = () => {
-    let suite = ['hearts', 'spades', 'clubs', 'diamond']
-    let cardNumber = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A']
-    let deck = []
-    for (i=0; i < cardNumber.length; i++) {
-        for (j=0; j < suite.length; j++){
-            let currentNumber = cardNumber[i]
-            let currentSuite = suite[j]
-            let currentCard = {
-                suite: currentSuite,
-                number: currentNumber
-            };
-            deck.push(currentCard)
-        }
-    }
-    return deck
-}
 
-const showDeck = (req, res) => {
-    res.send(getDeck())
+
+const deckController = (req, res) => {
+    res.send(myCardService.getDeck())
 }
-app.get('/deck', showDeck)
+app.get('/deck', cors(), deckController)
 app.listen(port, () => console.log(` app listening on port ${port}!`))
 
 
+// app.listen(80, showDeck())
