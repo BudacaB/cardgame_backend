@@ -38,9 +38,5 @@ class CardService {
 module.exports = CardService
 
 
-// Task
-/* BE:
-1.1 new method shuffleDeck
-		Input: deck
-        Output: randomized deck */
+
         

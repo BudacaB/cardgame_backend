@@ -14,13 +14,13 @@ const logFunction = (request, response, next) => {
     next()
 }
 
-const activateCors = (request, response, next) => {
+/* const activateCors = (request, response, next) => {
     cors()
     console.log('cors_passed')
     next()
-} 
+}  */
 
-app.use(activateCors)
+app.use(cors())
 app.use(logFunction)
 
 
@@ -50,9 +50,9 @@ const randomizedDeckController = (req, res) => {
     res.send(myCardService.shuffleDeck())
 }
 
-app.get('/randomizedDeck', cors(), randomizedDeckController)
+app.get('/randomizedDeck', randomizedDeckController)
 
-app.get('/deck', cors(), deckController)
+app.get('/deck', deckController)
 app.listen(port, () => console.log(` app listening on port ${port}!`))
 
 
