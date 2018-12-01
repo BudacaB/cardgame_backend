@@ -50,7 +50,13 @@ const randomizedDeckController = (req, res) => {
     res.send(myCardService.shuffleDeck())
 }
 
+const dealCardsController = (req, res) => {
+    res.send(myCardService.dealCards())
+}
+
 app.get('/randomizedDeck', randomizedDeckController)
+
+app.get('/dealCards', dealCardsController)
 
 app.get('/deck', deckController)
 app.listen(port, () => console.log(` app listening on port ${port}!`))

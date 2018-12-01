@@ -33,6 +33,37 @@ class CardService {
         return randomPosition
     }
 
+    // -> 52 // from 52 -> 52 / 2 to player (26) // 52 - 52 / 2 left (26)
+    dealCards(initialDeck, howMany) {
+        initialDeck = this.shuffleDeck()
+        howMany = initialDeck.length / 2
+        
+        let dealtCards = []
+        let leftCards = []
+
+        for (let i = 0; i <= howMany - 1; i++){
+            let dealtCard = initialDeck.shift()
+            //dealtCards = dealtCards.splice(0, 0, dealtCard)
+            dealtCards.push(dealtCard)
+            leftCards = initialDeck
+        }
+
+        // return firstResult = [dealtCards, leftCards]
+        
+
+       /*  let leftDeck = initialDeck;
+
+        let dealtCards = this.shuffleDeck().deck.length / 2
+        let leftCardsNumber = this.shuffleDeck().deck.length - this.shuffleDeck().deck.length / 2 */
+        
+
+        let result = {
+            dealtDeck: dealtCards,
+            leftDeck: leftCards
+        }
+        return result
+    }
+    
 }
 
 module.exports = CardService
