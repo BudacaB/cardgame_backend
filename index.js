@@ -2,23 +2,19 @@ const express = require('express')
 const app = express()
 const port = 3000
 const cors = require('cors')  // cors
-const CardService = require('./services/card.service')
+
 const http = require('http').createServer(app)
 const io = require('socket.io')(http)
+const CardController = require('./controllers/card.controller')
 
-let myCardService = new CardService()
+let myCardController = new CardController()
+
 
 // middleware
 const logFunction = (request, response, next) => {
     console.log('called', request.path)
     next()
 }
-
-/* const activateCors = (request, response, next) => {
-    cors()
-    console.log('cors_passed')
-    next()
-}  */
 
 const whitelist = ['http://127.0.0.1:4200'];
 const corsOptions = {
@@ -58,27 +54,12 @@ io.on('connection', function(socket){
   });
 
 
-  
-const deckController = (req, res) => {
-    res.send(myCardService.getDeck())
-}
 
-const randomizedDeckController = (req, res) => {
-    res.send(myCardService.shuffleDeck())
-}
+app.get('/randomizedDeck', myCardController.randomizedDeckController)
 
+app.get('/dealCards', myCardController.dealCardsController)
 
-const dealCardsController = (req, res) => {
-    let startingDeck = myCardService.shuffleDeck();
-    let deck = [startingDeck[0], startingDeck[1], startingDeck[2], startingDeck[3], startingDeck[4], startingDeck[5]]
-    res.send(myCardService.dealCards(deck, 2))
-}
-
-app.get('/randomizedDeck', randomizedDeckController)
-
-app.get('/dealCards', dealCardsController)
-
-app.get('/deck', deckController)
+app.get('/deck', myCardController.deckController)
 // app.listen(port, () => console.log(` app listening on port ${port}!`))
 http.listen(port, "127.0.0.1")
 

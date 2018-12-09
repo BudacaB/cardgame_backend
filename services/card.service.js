@@ -121,18 +121,6 @@ class CardService {
         return result
     }
     
-    compareCards(firstCard, secondCard){
-        if (firstCard.value < secondCard.value) {
-            return -1;
-        } else if (firstCard.value === secondCard.value) {
-            return 0;
-        } else if (firstCard.value > secondCard.value) {
-            return -1;
-        }
-    }
-
-
-
 }
 
 module.exports = CardService
