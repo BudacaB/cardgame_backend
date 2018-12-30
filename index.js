@@ -19,19 +19,23 @@ const logFunction = (request, response, next) => {
 const whitelist = ['http://127.0.0.1:4200'];
 const corsOptions = {
   credentials: true, // This is important.
+  // origin: (origin, callback) => {
+  //   if(whitelist.includes(origin))
+  //   {
+  //       return callback(null, true)
+  //   } else {
+  //       console.log(whitelist)
+  //       console.log(origin)
+  //       callback(new Error('Not allowed by CORS'));
+  //   }  
+  // }
   origin: (origin, callback) => {
-    if(whitelist.includes(origin))
-    {
         return callback(null, true)
-    } else {
-        console.log(whitelist)
-        console.log(origin)
-        callback(new Error('Not allowed by CORS'));
-    }  
   }
 }
 
-app.use(cors(corsOptions));
+//app.use(cors(corsOptions));
+app.options('*', cors()) // include before other routes
 app.use(logFunction)
 
 io.origins((origin, callback) => {
