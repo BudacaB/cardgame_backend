@@ -3,6 +3,10 @@ const app = express()
 const port = 3000
 const cors = require('cors')  // cors
 
+const bodyParser = require('body-parser');
+//app.use(bodyParser.json());
+app.use(bodyParser.json({ type: 'application/*+json' }))
+
 const http = require('http').createServer(app)
 const io = require('socket.io')(http)
 const CardController = require('./controllers/card.controller')
@@ -58,14 +62,17 @@ io.on('connection', function(socket){
   });
 
 
+app.post('/compareCards', myCardController.compareCards)
 
-app.get('/randomizedDeck', myCardController.randomizedDeckController)
+app.get('/randomizedDeck', myCardController.randomizedDeck)
 
-app.get('/dealCards', myCardController.dealCardsController)
+app.get('/dealCards', myCardController.dealCards)
 
-app.get('/deck', myCardController.deckController)
+app.get('/deck', myCardController.deck)
 // app.listen(port, () => console.log(` app listening on port ${port}!`))
 http.listen(port, "127.0.0.1")
+
+
 
 
 
