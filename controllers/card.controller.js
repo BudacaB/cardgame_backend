@@ -25,21 +25,22 @@ class CardController {
     compareCards(request, response) {
         let gameRulesApi = 'http://localhost:62588/api/gamerules';
         console.log('Requestul este:', request.body)
-        let gameRulesPromise = http.post(gameRulesApi, {bla: 'blu'});
+        
         let responseCallback = function(rulesResponse) {
-            response.send(rulesResponse.data)
+            console.log("response", response)
+            response.status(200).send(rulesResponse.data)
         }
         
         let errorCallback = (error) => {
-            response.status(500).send('Game Rules error: ', error.data)
+            console.log(error.message)
+            response.status(500).send('An error has ocurred. Please try again later.')
         }
 
-        return gameRulesPromise.then(responseCallback).catch(errorCallback);
-
-
-
+        return http
+                .post(gameRulesApi, [])
+                .then(responseCallback)
+                .catch(errorCallback);
     }
-
 }
 
 module.exports = CardController
