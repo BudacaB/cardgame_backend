@@ -5,7 +5,7 @@ const cors = require('cors')  // cors
 
 const bodyParser = require('body-parser');
 //app.use(bodyParser.json());
-app.use(bodyParser.json({ type: 'application/*+json' }))
+// app.use(bodyParser.json({ type: 'application/*+json' }))
 
 const http = require('http').createServer(app)
 const io = require('socket.io')(http)
@@ -41,7 +41,7 @@ const corsOptions = {
 //app.use(cors(corsOptions));
 app.options('*', cors()) // include before other routes
 app.use(logFunction)
-
+app.use(bodyParser.json());
 io.origins((origin, callback) => {
     console.log('am intrat aici', origin)
     if (origin !== 'http://127.0.0.1:4200') {
